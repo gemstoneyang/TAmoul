@@ -6,24 +6,34 @@
 #    By: wonyang <wonyang@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/05 01:02:51 by wonyang           #+#    #+#              #
-#    Updated: 2022/10/01 00:44:52 by wonyang          ###   ########.fr        #
+#    Updated: 2022/10/01 01:02:41 by wonyang          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= $(wildcard *.c)
+SRCDIR		= ./srcs
+
+RESDIR		= ./ress
+
+SRCS		= $(wildcard $(SRCDIR)/*.c)
 
 NAMES		= $(SRCS:%.c=%_res)
 
-all	:		$(NAMES)
+all	:
+			@echo "source file compile"
+			@make compile
+
+compile	:	$(NAMES)
 
 %_res	:	%.c
-			cc -o $@ $^
+			@cc -o $@ $^
+			@mv $@ $(RESDIR)
 
 clean	:
-			rm -f $(NAMES)
+			@echo "result file clear"
+			@rm -f $(NAMES)
 
 re	:		
-			make clean
-			make all
+			@make clean
+			@make all
 
-.PHONY	:	all clean
+.PHONY	:	all clean compile re
